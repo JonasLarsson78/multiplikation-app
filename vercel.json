@@ -3,6 +3,14 @@
   "builds": [
     { "src": "package.json", "use": "@vercel/static-build" }
   ],
+  "headers": [
+    {
+      "source": "/site.webmanifest",
+      "headers": [
+        { "key": "Content-Type", "value": "application/manifest+json; charset=utf-8" }
+      ]
+    }
+  ],
   "routes": [
     { "handle": "filesystem" },
     { "src": "/(.*)", "dest": "/index.html" }
