@@ -45,7 +45,7 @@
         <div class="practice-row">
           <input
             ref="answerRef"
-            type="number"
+            type="tel"
             inputmode="numeric"
             pattern="[0-9]*"
             class="answer-input"
@@ -55,6 +55,22 @@
             @keyup.enter="nextQuestion"
             aria-label="Skriv ditt svar"
           />
+        </div>
+
+        <div class="num-keypad" aria-hidden="false">
+          <div class="keys">
+            <button
+              v-for="d in [1, 2, 3, 4, 5, 6, 7, 8, 9]"
+              :key="d"
+              class="key"
+              @click="appendDigit(d)"
+            >
+              {{ d }}
+            </button>
+            <button class="key action" @click="backspace">⌫</button>
+            <button class="key" @click="appendDigit(0)">0</button>
+            <button class="key action" @click="clearInput">C</button>
+          </div>
         </div>
 
         <div class="card-actions">
@@ -204,6 +220,28 @@ function sanitizeInput(e) {
   answers.value[currentQuestion.value] = cleaned
 }
 
+function appendDigit(d) {
+  const idx = currentQuestion.value
+  const cur = String(answers.value[idx] || '')
+  // limit to 3 digits (max 120)
+  if (cur.length >= 3) return
+  const next = cur + String(d)
+  answers.value[idx] = next
+  focusInput()
+}
+
+function backspace() {
+  const idx = currentQuestion.value
+  const cur = String(answers.value[idx] || '')
+  answers.value[idx] = cur.slice(0, -1)
+  focusInput()
+}
+
+function clearInput() {
+  answers.value[currentQuestion.value] = ''
+  focusInput()
+}
+
 function goBack() {
   router.push('/')
 }
@@ -349,6 +387,38 @@ input.answer-input {
   -webkit-appearance: textfield;
   -moz-appearance: textfield;
   appearance: textfield;
+}
+
+.num-keypad {
+  margin-top: 10px;
+}
+
+.num-keypad .keys {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.num-keypad .key {
+  padding: 12px 0;
+  border-radius: 10px;
+  background: rgba(15, 23, 42, 0.06);
+  border: none;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.num-keypad .key.action {
+  background: linear-gradient(
+    180deg,
+    rgba(220, 220, 220, 0.95),
+    rgba(200, 200, 200, 0.95)
+  );
+}
+
+.num-keypad .key:active {
+  transform: translateY(2px);
 }
 
 .action-btn {
