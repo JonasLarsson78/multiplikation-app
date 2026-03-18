@@ -45,9 +45,12 @@
         <div class="practice-row">
           <input
             ref="answerRef"
-            type="number"
+            type="tel"
+            inputmode="numeric"
+            pattern="[0-9]*"
             class="answer-input"
             v-model="answers[currentQuestion]"
+            @input="sanitizeInput"
             placeholder="Skriv svar"
             @keyup.enter="nextQuestion"
             aria-label="Skriv ditt svar"
@@ -190,6 +193,15 @@ function focusInput() {
     const el = answerRef.value
     if (el && typeof el.focus === 'function') el.focus()
   })
+}
+
+function sanitizeInput(e) {
+  const raw = e.target.value || ''
+  const cleaned = raw.replace(/\D+/g, '')
+  if (e.target.value !== cleaned) {
+    e.target.value = cleaned
+  }
+  answers.value[currentQuestion.value] = cleaned
 }
 
 function goBack() {
