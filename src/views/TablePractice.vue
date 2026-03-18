@@ -45,6 +45,7 @@
         <div class="practice-row">
           <input
             ref="answerRef"
+            type="number"
             class="answer-input"
             v-model="answers[currentQuestion]"
             placeholder="Skriv svar"
@@ -323,6 +324,19 @@ watch(
 
 .answer-input:focus {
   outline: 3px solid rgba(16, 185, 129, 0.16);
+}
+
+/* Hide number input spinners (WebKit & Firefox) */
+input.answer-input::-webkit-outer-spin-button,
+input.answer-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input.answer-input {
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 .action-btn {
