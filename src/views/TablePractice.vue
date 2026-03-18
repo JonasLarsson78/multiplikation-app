@@ -45,7 +45,7 @@
         <div class="practice-row">
           <input
             ref="answerRef"
-            type="tel"
+            type="number"
             inputmode="numeric"
             pattern="[0-9]*"
             class="answer-input"
@@ -54,6 +54,7 @@
             placeholder="Skriv svar"
             @keyup.enter="nextQuestion"
             aria-label="Skriv ditt svar"
+            readonly
           />
         </div>
 
