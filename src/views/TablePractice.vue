@@ -44,6 +44,7 @@
 
         <div class="practice-row">
           <input
+            ref="answerRef"
             class="answer-input"
             v-model="answers[currentQuestion]"
             placeholder="Skriv svar"
@@ -101,7 +102,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch, computed } from 'vue'
+import { ref, onMounted, watch, computed, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
@@ -116,6 +117,7 @@ const evaluated = ref(false)
 const score = ref(0)
 const history = ref([])
 const mode = ref('ordered')
+const answerRef = ref(null)
 
 const percent = computed(() => {
   if (totalQuestions === 0) return 0
@@ -144,11 +146,17 @@ function setMode(m) {
 }
 
 function nextQuestion() {
-  if (currentQuestion.value + 1 < totalQuestions) currentQuestion.value += 1
+  if (currentQuestion.value + 1 < totalQuestions) {
+    currentQuestion.value += 1
+    focusInput()
+  }
 }
 
 function prevQuestion() {
-  if (currentQuestion.value > 0) currentQuestion.value -= 1
+  if (currentQuestion.value > 0) {
+    currentQuestion.value -= 1
+    focusInput()
+  }
 }
 
 function nextOrFinish() {
@@ -173,6 +181,14 @@ function evaluateAll() {
 
 function startSession() {
   generateSession()
+  focusInput()
+}
+
+function focusInput() {
+  nextTick(() => {
+    const el = answerRef.value
+    if (el && typeof el.focus === 'function') el.focus()
+  })
 }
 
 function goBack() {
