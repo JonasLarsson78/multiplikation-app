@@ -1,4 +1,4 @@
-# Multiplikation-app
+# Multiplikation App
 
 En liten, barnvänlig webapp för att öva multiplikationstabeller, byggd med Vue 3 och Vite.
 
@@ -8,6 +8,19 @@ En liten, barnvänlig webapp för att öva multiplikationstabeller, byggd med Vu
 - 10 frågor per övningssession
 - Växla mellan ordning (1→10) och slumpmässig ordning
 - Sammanställning med poäng och procent efter sessionen
+
+## Designmål
+
+- Appen är speciellt utformad med iPad i åtanke — enkel, touchvänlig och tydlig för yngre barn. Denna version är byggd för att hjälpa en dotter som har svårt att lära sig multiplikationstabeller och för att göra övningen lättare och mer tillgänglig.
+
+## Installera på iPad (lägg till på hemskärmen)
+
+För bästa upplevelse på iPad kan du lägga till appen på hemskärmen så den öppnas som en egen app:
+
+1. Öppna appen i Safari/Chrome på din iPad.
+2. Tryck på delningsikonen (fyrkant med en uppåtpil) i Safari-verktygsfältet.
+3. Välj "Lägg till på hemskärmen" ("Add to Home Screen").
+4. Bekräfta namnet och tryck "Lägg till"
 
 ## Förutsättningar
 
